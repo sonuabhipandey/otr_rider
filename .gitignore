@@ -1,0 +1,40 @@
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+.vercel
+
+# Supabase local
+supabase/.branches
+supabase/.temp
+
+# Automation (Python)
+automation/.venv/
+automation/venv/
+automation/__pycache__/
+automation/**/__pycache__/
+automation/config.yaml
+automation/downloads/
+automation/logs/
+automation/auth/
+*.pyc
+
+# Sample / raw data
+*.csv
+*.csv.gz
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

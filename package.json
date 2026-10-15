@@ -1,0 +1,14 @@
+{
+  "name": "fastbeetle-rider-dashboard",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix web run dev",
+    "build": "npm --prefix web run build",
+    "db:link": "supabase link",
+    "db:push": "supabase db push",
+    "db:new": "supabase migration new"
+  },
+  "devDependencies": {
+    "supabase": "^2.0.0"
+  }
+}
