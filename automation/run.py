@@ -82,6 +82,14 @@ def check_store_batches(config: dict) -> None:
         print(f"Note: config.yaml batches include stores the dashboard will auto-add: {', '.join(sorted(extra))}")
 
 
+def data_rows(path: Path) -> int:
+    """Rows after the header line (0 for a missing, empty or header-only file)."""
+    if not path.exists():
+        return 0
+    with open(path, encoding="utf-8") as f:
+        return max(0, sum(1 for line in f if line.strip()) - 1)
+
+
 def run_one(day: dt.date, context, page, config: dict, upload: bool) -> dict:
     """Export, combine and (optionally) upload one date. Raises on failure."""
     ensure_logged_in(context, page, config)
@@ -91,6 +99,12 @@ def run_one(day: dt.date, context, page, config: dict, upload: bool) -> dict:
         print("  Saved session's token had expired mid-run; logging in again and retrying this date once.")
         ensure_logged_in(context, page, config, force=True)
         batch_a, batch_b = export_orders(page, config, target_date=day)
+
+    # A day with no orders yet (e.g. "today" when the 01:00 job runs) exports header-only/empty files.
+    # That is expected, not a failure: report it and upload nothing.
+    if all(data_rows(p) == 0 for p in (batch_a, batch_b)):
+        print("  no orders in either batch yet; nothing to combine or upload")
+        return {"rows": 0, "result": "no orders yet (nothing uploaded)"}
 
     combined = DOWNLOADS_DIR / f"combined_{day.isoformat()}.csv"
     combine_batches([batch_a, batch_b], combined)
