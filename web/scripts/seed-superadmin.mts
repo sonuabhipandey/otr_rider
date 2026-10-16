@@ -25,7 +25,7 @@ if (existing) {
   process.exit(1);
 }
 
-// 16 chars from base64url, guaranteed to contain a digit and a symbol.
+// 18 chars from base64url, guaranteed to contain a digit and a symbol.
 const tempPassword = randomBytes(12).toString("base64url") + "7!";
 
 const { data: created, error: createErr } = await supabase.auth.admin.createUser({
