@@ -1,0 +1,16 @@
+# Copy this file to config.yaml and fill in your values. config.yaml is gitignored.
+
+control_tower:
+  base_url: "https://control-tower.loadshare.net"
+  phone_number: ""      # your login phone number, digits only, no +91
+  headless: false        # keep visible for now; can switch to true once proven stable
+
+stores:
+  # Batch A and Batch B are exported as two separate CSVs (site limit) and
+  # combined into one file afterward.
+  batch_a: ["TDE5", "TDE1", "TDE2", "TDI6", "TDO2"]
+  batch_b: ["TNE3", "TND7", "TND9", "TNE4", "TNE5", "TNE6"]
+
+dashboard:
+  upload_url: "https://delivery-ops-fastbeetle.netlify.app/api/automation/upload"
+  upload_key: ""         # same value as AUTOMATION_UPLOAD_KEY in the dashboard's env vars
