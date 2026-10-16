@@ -1,3 +1,4 @@
-playwright>=1.45
+# Playwright pinned to the version the LoadShare scraper was proven with (its selectors are DOM-based).
+playwright==1.61.0
 requests>=2.31
 PyYAML>=6.0

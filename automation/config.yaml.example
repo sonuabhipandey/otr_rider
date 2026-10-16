@@ -3,7 +3,7 @@
 control_tower:
   base_url: "https://control-tower.loadshare.net"
   phone_number: ""      # your login phone number, digits only, no +91
-  headless: false        # keep visible for now; can switch to true once proven stable
+  headless: false        # not used by run.py: pass --headless instead (default is a visible browser)
 
 stores:
   # Batch A and Batch B are exported as two separate CSVs (site limit) and
@@ -12,5 +12,6 @@ stores:
   batch_b: ["TNE3", "TND7", "TND9", "TNE4", "TNE5", "TNE6"]
 
 dashboard:
-  upload_url: "https://delivery-ops-fastbeetle.netlify.app/api/automation/upload"
-  upload_key: ""         # same value as AUTOMATION_UPLOAD_KEY in the dashboard's env vars
+  # The rider dashboard's address, no trailing slash. Local testing: "http://localhost:3000".
+  base_url: "https://<your-project>.vercel.app"
+  upload_key: ""         # same value as AUTOMATION_UPLOAD_KEY in the dashboard's env vars (Vercel)
