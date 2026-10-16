@@ -16,7 +16,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { formatDateTime, formatNumber } from "@/lib/format";
+import { ExportButton } from "@/components/dashboard/export-button";
+import { formatDateTime, formatNumber, istStamp } from "@/lib/format";
 import { deleteAllFiles, deleteFile, getDownloadUrl } from "./actions";
 
 export type UploadRow = {
@@ -147,7 +148,32 @@ export function UploadsTable({
             {limited && " Showing the latest 200 uploads."}
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
+          <ExportButton
+            fileName={`uploads_${new Date().toISOString().slice(0, 10)}.xlsx`}
+            filters={{ stores: "All", dates: "All uploads shown", search: "" }}
+            sheets={[
+              {
+                name: "Uploads",
+                rows: rows.map((r) => ({
+                  "When (IST)": istStamp(r.createdAt),
+                  By: r.by,
+                  Source: r.source,
+                  File: r.fileName,
+                  "Rows total": r.rowsTotal,
+                  New: r.rowsInserted,
+                  Updated: r.rowsUpdated,
+                  Rejected: r.rowsRejected,
+                  "Business date from": r.dateMin,
+                  "Business date to": r.dateMax,
+                  Stores: r.stores.join(", "),
+                  Status: r.status,
+                  Error: r.error,
+                  "File status": r.fileStored ? `Stored until ${istStamp(r.fileExpiresAt).slice(0, 10)}` : r.fileDeletedAt ? "Deleted" : "No file",
+                })),
+              },
+            ]}
+          />
           {canDelete && (
             <Button
               variant="outline"

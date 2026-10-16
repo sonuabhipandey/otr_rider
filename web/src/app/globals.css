@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
@@ -55,8 +55,8 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
+  --primary: #2a78d6;
+  --primary-foreground: #ffffff;
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
@@ -66,7 +66,7 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: #86b6ef;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -75,7 +75,7 @@
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary: #2a78d6;
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.205 0 0);
@@ -90,8 +90,8 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
+  --primary: #3987e5;
+  --primary-foreground: #ffffff;
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -101,7 +101,7 @@
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --ring: #256abf;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -109,12 +109,73 @@
   --chart-5: oklch(0.269 0 0);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary: #3987e5;
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+/* Chart tokens (dataviz reference palette, validated for these surfaces). Colour follows the entity:
+   orders = slot 1 blue, BTOs = slot 2 orange, S2P = slot 3 aqua. Heat = one-hue blue ramp. */
+:root {
+  --series-orders: #2a78d6;
+  --series-bto: #eb6834;
+  --series-s2p: #1baf7a;
+  --viz-grid: #e1e0d9;
+  --viz-axis: #c3c2b7;
+  --viz-muted: #898781;
+  --delta-good: #006300;
+  --delta-bad: #d03b3b;
+  --heat-0: #f4f4f2;
+  --heat-1: #cde2fb;
+  --heat-2: #9ec5f4;
+  --heat-3: #6da7ec;
+  --heat-4: #3987e5;
+  --heat-5: #256abf;
+  --heat-6: #184f95;
+  --heat-7: #0d366b;
+}
+.dark {
+  --series-orders: #3987e5;
+  --series-bto: #d95926;
+  --series-s2p: #199e70;
+  --viz-grid: #2c2c2a;
+  --viz-axis: #383835;
+  --viz-muted: #898781;
+  --delta-good: #0ca30c;
+  --delta-bad: #e66767;
+  --heat-0: #232322;
+  --heat-1: #0d366b;
+  --heat-2: #104281;
+  --heat-3: #184f95;
+  --heat-4: #256abf;
+  --heat-5: #3987e5;
+  --heat-6: #6da7ec;
+  --heat-7: #9ec5f4;
+}
+/* Heatmap cell ink per step: flips where the fill gets dark (light mode) or light (dark mode)
+   so values always clear contrast. Applied inline by the heatmap with var(--heat-N) / var(--heat-ink-N). */
+:root {
+  --heat-ink-0: #0b0b0b;
+  --heat-ink-1: #0b0b0b;
+  --heat-ink-2: #0b0b0b;
+  --heat-ink-3: #0b0b0b;
+  --heat-ink-4: #ffffff;
+  --heat-ink-5: #ffffff;
+  --heat-ink-6: #ffffff;
+  --heat-ink-7: #ffffff;
+}
+.dark {
+  --heat-ink-0: #f0efec;
+  --heat-ink-1: #f0efec;
+  --heat-ink-2: #f0efec;
+  --heat-ink-3: #f0efec;
+  --heat-ink-4: #ffffff;
+  --heat-ink-5: #ffffff;
+  --heat-ink-6: #0b0b0b;
+  --heat-ink-7: #0b0b0b;
 }
 
 @layer base {

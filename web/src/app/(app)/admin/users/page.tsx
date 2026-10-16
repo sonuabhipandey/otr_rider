@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { ExportButton } from "@/components/dashboard/export-button";
 import { requireSuperadmin, type Role } from "@/lib/auth";
+import { istStamp } from "@/lib/format";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { AddUserDialog } from "./add-user-dialog";
 import { UsersTable, type UserRow } from "./users-table";
@@ -55,7 +57,27 @@ export default async function UsersPage() {
             {users.filter((u) => u.isActive).length} active of {users.length}
           </p>
         </div>
-        <AddUserDialog />
+        <div className="flex gap-2">
+          <ExportButton
+            fileName={`users_${new Date().toISOString().slice(0, 10)}.xlsx`}
+            filters={{ stores: "n/a", dates: "n/a", search: "" }}
+            sheets={[
+              {
+                name: "Users",
+                rows: users.map((u) => ({
+                  Name: u.name,
+                  Email: u.email,
+                  Role: u.role,
+                  Status: u.isActive ? (u.mustChangePassword ? "Active (temporary password)" : "Active") : "Deactivated",
+                  "Created by": u.createdBy,
+                  "Created (IST)": istStamp(u.createdAt),
+                  "Last sign-in (IST)": istStamp(u.lastSignInAt),
+                })),
+              },
+            ]}
+          />
+          <AddUserDialog />
+        </div>
       </div>
       <UsersTable users={users} currentUserId={me.id} />
     </div>
