@@ -119,7 +119,7 @@ export function UploadForm() {
           )}
           <div className="flex flex-wrap gap-2">
             <Button onClick={reset}>Upload another file</Button>
-            <Button variant="outline" render={<Link href="/admin/uploads" />}>
+            <Button variant="outline" nativeButton={false} render={<Link href="/admin/uploads" />}>
               Upload history
             </Button>
           </div>

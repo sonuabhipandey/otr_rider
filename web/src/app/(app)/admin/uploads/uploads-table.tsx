@@ -158,7 +158,7 @@ export function UploadsTable({
               Delete all stored CSV files
             </Button>
           )}
-          <Button render={<Link href="/admin/upload" />}>
+          <Button nativeButton={false} render={<Link href="/admin/upload" />}>
             <UploadIcon />
             Upload
           </Button>
