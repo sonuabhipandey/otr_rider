@@ -34,6 +34,7 @@ export async function signIn(_prev: LoginState, formData: FormData): Promise<Log
 
 export async function signOut() {
   const supabase = await createClient();
-  await supabase.auth.signOut();
+  // This browser only; the person may also be signed in on their phone.
+  await supabase.auth.signOut({ scope: "local" });
   redirect("/login");
 }

@@ -136,7 +136,8 @@ for (const [page, name, args] of calls) {
   record("DB: call get_db_size (superadmin only)", !!error, error?.message ?? "call succeeded!");
 }
 
-await ssr.auth.signOut();
+// Only this script's session; "global" would also sign the person out of their browsers.
+await ssr.auth.signOut({ scope: "local" });
 
 console.table(results.map((r) => ({ result: r.pass ? "PASS" : "FAIL", check: r.check, detail: r.detail })));
 const failed = results.filter((r) => !r.pass).length;

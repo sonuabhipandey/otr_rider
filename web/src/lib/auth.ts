@@ -14,18 +14,21 @@ export type Profile = {
   must_change_password: boolean;
 };
 
-/** The signed-in user's profile, or null. Cached per request. */
+/**
+ * The signed-in user's profile, or null. Cached per request.
+ * Uses the same session check as src/proxy.ts (getClaims): if the two disagreed, the proxy and the
+ * pages could redirect a browser back and forth forever. Deactivation is enforced by profiles.is_active.
+ */
 export const getCurrentProfile = cache(async (): Promise<Profile | null> => {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) return null;
+  const { data: claims } = await supabase.auth.getClaims();
+  const userId = claims?.claims?.sub;
+  if (!userId) return null;
 
   const { data } = await supabase
     .from("profiles")
     .select("id, email, full_name, role, is_active, must_change_password")
-    .eq("id", user.id)
+    .eq("id", userId)
     .maybeSingle<Profile>();
   return data;
 });
