@@ -19,6 +19,12 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
           <Link href="/" className="hover:text-foreground">
             Overview
           </Link>
+          <Link href="/admin/upload" className="hover:text-foreground">
+            Upload
+          </Link>
+          <Link href="/admin/uploads" className="hover:text-foreground">
+            Upload history
+          </Link>
           {isSuperadmin && (
             <Link href="/admin/users" className="hover:text-foreground">
               Users

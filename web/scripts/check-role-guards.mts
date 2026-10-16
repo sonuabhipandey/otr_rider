@@ -76,26 +76,29 @@ const record = (check: string, pass: boolean, detail: string) => results.push({ 
 
 // 2. Server actions called directly, bypassing the UI
 const manifest = JSON.parse(readFileSync(".next/server/server-reference-manifest.json", "utf8"));
-const actionId = (name: string) =>
+const actionId = (name: string, page: string) =>
   Object.entries<{ exportedName: string; workers: Record<string, unknown> }>(manifest.node).find(
-    ([, v]) => v.exportedName === name && "app/(app)/admin/users/page" in v.workers,
+    ([, v]) => v.exportedName === name && `app/(app)${page}/page` in v.workers,
   )?.[0];
 
 const NOT_ALLOWED = "You are not allowed to do this.";
 const someone = signIn.user.id; // target: the caller themself (harmless if the guard held)
-const calls: [string, unknown[]][] = [
-  ["createUser", [{ fullName: "Guard Test", email: "guard-test@example.test", role: "superadmin" }]],
-  ["changeRole", [someone, "superadmin"]],
-  ["resetPassword", [someone]],
-  ["setActive", [someone, false]],
+const { data: anyUpload } = await asUser.from("uploads").select("id").limit(1).maybeSingle();
+const calls: [string, string, unknown[]][] = [
+  ["/admin/users", "createUser", [{ fullName: "Guard Test", email: "guard-test@example.test", role: "superadmin" }]],
+  ["/admin/users", "changeRole", [someone, "superadmin"]],
+  ["/admin/users", "resetPassword", [someone]],
+  ["/admin/users", "setActive", [someone, false]],
+  ["/admin/uploads", "deleteFile", [anyUpload?.id ?? "00000000-0000-0000-0000-000000000000"]],
+  ["/admin/uploads", "deleteAllFiles", []],
 ];
-for (const [name, args] of calls) {
-  const id = actionId(name);
+for (const [page, name, args] of calls) {
+  const id = actionId(name, page);
   if (!id) {
     record(`action ${name} refused`, false, "action id not found; run `npm run build` first");
     continue;
   }
-  const res = await fetch(`${base}/admin/users`, {
+  const res = await fetch(`${base}${page}`, {
     method: "POST",
     headers: {
       Cookie: cookieHeader,
