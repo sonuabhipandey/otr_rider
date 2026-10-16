@@ -13,5 +13,5 @@ stores:
 
 dashboard:
   # The rider dashboard's address, no trailing slash. Local testing: "http://localhost:3000".
-  base_url: "https://<your-project>.vercel.app"
+  base_url: "https://fastbeetle-riders.vercel.app"
   upload_key: ""         # same value as AUTOMATION_UPLOAD_KEY in the dashboard's env vars (Vercel)

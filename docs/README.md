@@ -92,7 +92,8 @@ cd web && npm run seed:superadmin   # prints a temporary password once
 
 ## Deployment (Vercel)
 
-- Vercel project imported from the GitHub repo with **Root Directory = `web`** (framework: Next.js).
+- **Production: https://fastbeetle-riders.vercel.app** (Vercel project `fastbeetle-riders`).
+- Vercel project connected to the GitHub repo with **Root Directory = `web`** (framework: Next.js).
 - `web/vercel.json` pins functions to `hnd1` (Tokyo, next to the Supabase project in ap-northeast-1) and
   schedules the daily file-cleanup cron (21:30 UTC ≈ 03:00 IST; Hobby crons fire within that hour).
 - Pushing to `main` deploys production.

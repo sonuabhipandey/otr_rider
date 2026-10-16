@@ -24,7 +24,7 @@ Both tasks call `run_and_notify.ps1`, which runs `run.py` and shows a Windows no
    ```
 3. Open `config.yaml` in Notepad and fill in:
    - `control_tower.phone_number`: the LoadShare login number, digits only.
-   - `dashboard.base_url`: the dashboard address, e.g. `https://fastbeetle-riders.vercel.app` (no trailing slash).
+   - `dashboard.base_url`: `https://fastbeetle-riders.vercel.app` (no trailing slash).
    - `dashboard.upload_key`: the same value as `AUTOMATION_UPLOAD_KEY` in Vercel (ask a superadmin).
 4. Do a first run by hand so the LoadShare session gets saved (see *OTP* below):
    ```powershell
